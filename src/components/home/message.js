@@ -25,7 +25,7 @@ export default function Message() {
                 setTyping(data.typing);
             }
         });
-    }, []);
+    }, [conversation]);
 
     useEffect(() => {
         if (conversation?._id) {
@@ -36,7 +36,7 @@ export default function Message() {
     const getUserFromMember = (members) => {
         return members.find(el => (el._id !== UserDetails._id)) || members.find(el => (el._id === UserDetails._id));
     };
-
+    console.log(typing)
     return (
         <div className="message-area p-3 bg-light rounded">
             <div className="message-list overflow-auto mb-3">
@@ -53,9 +53,9 @@ export default function Message() {
                 {typing && <small className="text-success">Typing...</small>}
             </div>
             <Form.Group className="d-flex">
-                <Form.Control 
-                    type="text" 
-                    placeholder="Type a message..." 
+                <Form.Control
+                    type="text"
+                    placeholder="Type a message..."
                     value={textMessage}
                     onFocus={() => {
                         let user = allOnlineUsers.find(v => v?.user?.id === getUserFromMember(conversation?.Members)?._id);
@@ -72,8 +72,8 @@ export default function Message() {
                     onChange={(e) => setTextMessage(e.target.value)}
                     className="me-2"
                 />
-                <Button 
-                    variant="primary" 
+                <Button
+                    variant="primary"
                     disabled={!textMessage}
                     onClick={() => {
                         socket.emit("sendMessage", {
