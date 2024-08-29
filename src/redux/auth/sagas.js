@@ -3,6 +3,7 @@ import axios from 'axios';
 import actions from './actions';
 import { API_URL } from '../../utils/constants';
 import setAuthToken from '../../utils/setAuthToken';
+import { io } from 'socket.io-client';
 
 const AuthSaga = function* () {
   yield all([
@@ -36,8 +37,9 @@ const getAllUserRoles = function* () {
 const getAllUsers = function* () {
   try {
     const result = yield call(() =>
-      axios.get(`${API_URL}/api/users/all`)
+      axios.get(`${API_URL}/api/users/list`)
     );
+    console.log(result)
     if (result?.data) {
       yield put({ type: actions.SET_ALL_USERS, payload: result?.data });
     }
@@ -86,6 +88,13 @@ const VerifyTocket = function* (data) {
         axios.get(`${API_URL}/api/auth/verifytoken`)
       );
       if (result.data.statusCode === 200) {
+
+        const socket = io('http://localhost:3001', {
+          auth: {
+            token: payload
+          }
+        });
+        yield put({ type: actions.SET_SOCKET, payload: socket });
         yield put({ type: actions.SET_USER_DETAILS, payload: result.data.result });
         yield put({ type: actions.SET_AUTH_ROUTE_PATH, payload: (localStorage.getItem("activePath") && (localStorage.getItem("activePath") !== "/")) ? localStorage.getItem("activePath") : "/home" });
         yield put({ type: actions.SET_AUTHETICATRION, payload: true });
@@ -94,11 +103,7 @@ const VerifyTocket = function* (data) {
         localStorage.removeItem('token');
       }
     } catch (err) {
-      if (err.response && err.response.data) {
-        alert(err.response.data.message || 'An error occurred');
-      } else {
-        alert('Network error or server is down');
-      }
+      console.log(err)
     } finally {
       yield put({ type: actions.SET_LOADER, payload: false });
     }

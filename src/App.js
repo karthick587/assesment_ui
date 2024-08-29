@@ -9,6 +9,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import { Provider } from 'react-redux';
 import { store } from "./redux/store"
 import authActions from './redux/auth/actions';
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
 
   if (localStorage.getItem('token')) {

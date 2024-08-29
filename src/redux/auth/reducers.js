@@ -1,16 +1,34 @@
 import actions from "./actions";
 
 const initialState = {
-  UserDetails: [],
+  UserDetails: {},
   isAuthenticated: false,
   allUsersList: [],
   alluserRolesList: [],
   authRoutepath: "/home",
   loader: false,
+  socket: "",
+  allOnlineUsers: [],
+  conversation: null
 };
 
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actions.SET_CONVERSATION:
+      return {
+        ...state,
+        conversation: action.payload
+      };
+    case actions.SET_ALL_ONLINE_USERS:
+      return {
+        ...state,
+        allOnlineUsers: action.payload
+      };
+    case actions.SET_SOCKET:
+      return {
+        ...state,
+        socket: action.payload
+      }
     case actions.SET_ALL_USER_ROLES:
       return {
         ...state,
