@@ -52,7 +52,7 @@ export default function Message() {
             <div className="typing-indicator mb-2">
                 {typing && <small className="text-success">Typing...</small>}
             </div>
-            <Form.Group className="d-flex">
+            <div className="d-flex">
                 <Form.Control
                     type="text"
                     placeholder="Type a message..."
@@ -85,7 +85,7 @@ export default function Message() {
                 >
                     Send
                 </Button>
-            </Form.Group>
+            </div>
         </div>
     );
 }
