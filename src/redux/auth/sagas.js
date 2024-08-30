@@ -89,7 +89,7 @@ const VerifyTocket = function* (data) {
       );
       if (result.data.statusCode === 200) {
 
-        const socket = io('http://localhost:3001', {
+        const socket = io('https://dfchat-qp6a.onrender.com', {
           auth: {
             token: payload
           }
