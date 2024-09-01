@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../redux/auth/actions";
-import VideoCall from "./videoCall";
+import VideoCall from "../components/home/videoCall";
 import Conversation from "../components/home/conversation";
 import Message from "../components/home/message";
 import { Container, Button, Row, Col } from "react-bootstrap";
 
 export default function Home() {
-    const { user } = useSelector((state) => state.authReducer);
+    const { user, conversation } = useSelector((state) => state.authReducer);
     const dispatch = useDispatch();
 
     const logOut = () => {
@@ -32,17 +32,12 @@ export default function Home() {
                     </Button>
                 </Col>
             </Row>
-            <Row>
+            <Row className="h-84vh">
                 <Col md={4} className="conversation-container">
                     <Conversation />
                 </Col>
                 <Col md={8} className="message-container">
-                    <Message />
-                </Col>
-            </Row>
-            <Row className="mt-4">
-                <Col>
-                    <VideoCall />
+                    {conversation?._id && <Message />}
                 </Col>
             </Row>
         </Container>

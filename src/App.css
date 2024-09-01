@@ -115,14 +115,14 @@
 }
 
 .message-area {
-  height: 50vh;
+  /* height: 50vh; */
   display: flex;
   flex-direction: column;
 }
 
 .message-list {
   flex: 1;
-  max-height: 40vh;
+  max-height: 60vh;
   overflow-y: auto;
 }
 
@@ -242,4 +242,7 @@
 
 .user-list button:hover {
   background-color: #218838;
+}
+.h-84vh {
+  height: 84vh;
 }

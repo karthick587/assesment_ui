@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 function VideoCall() {
-    const { socket } = useSelector((state) => state.authReducer);
-    const [roomId, setRoomId] = useState("karthickRoom");
+    const { socket, conversation } = useSelector((state) => state.authReducer);
     const [allUsers, setAllUsers] = useState([]);
     const [incomingCall, setIncomingCall] = useState(null);
     const [isAudioMuted, setIsAudioMuted] = useState(false);
@@ -13,25 +12,26 @@ function VideoCall() {
     const peerConnections = useRef({});
 
     useEffect(() => {
-        socket.emit('join-room', roomId, socket.id);
+        if (conversation?._id) {
+            socket.emit('join-room', conversation._id, socket.id);
+            socket.on('all-users', (users) => {
+                setAllUsers(users.filter(user => user.socketId !== socket.id));
+            });
 
-        socket.on('all-users', (users) => {
-            setAllUsers(users.filter(user => user.socketId !== socket.id));
-        });
+            socket.on('receive-offer', handleReceiveOffer);
+            socket.on('receive-answer', handleReceiveAnswer);
+            socket.on('receive-ice-candidate', handleReceiveIceCandidate);
+            socket.on('call-ended', handleCallEnded);
 
-        socket.on('receive-offer', handleReceiveOffer);
-        socket.on('receive-answer', handleReceiveAnswer);
-        socket.on('receive-ice-candidate', handleReceiveIceCandidate);
-        socket.on('call-ended', handleCallEnded);
-
-        return () => {
-            socket.off('receive-offer', handleReceiveOffer);
-            socket.off('receive-answer', handleReceiveAnswer);
-            socket.off('receive-ice-candidate', handleReceiveIceCandidate);
-            socket.off('call-ended', handleCallEnded);
-            endCall(); // Cleanup when the component unmounts
+            return () => {
+                socket.off('receive-offer', handleReceiveOffer);
+                socket.off('receive-answer', handleReceiveAnswer);
+                socket.off('receive-ice-candidate', handleReceiveIceCandidate);
+                socket.off('call-ended', handleCallEnded);
+                endCall(); // Cleanup when the component unmounts
+            }
         };
-    }, [roomId, socket]);
+    }, [conversation, socket]);
 
     useEffect(() => {
         remoteStreams.forEach(stream => {
@@ -191,8 +191,6 @@ function VideoCall() {
 
     return (
         <div className="video-call-container">
-            <h1>Room ID: {roomId}</h1>
-
             <div className="video-calls">
                 <div className="video-grid">
                     <video ref={myVideoRef} muted className="my-video" autoPlay playsInline />

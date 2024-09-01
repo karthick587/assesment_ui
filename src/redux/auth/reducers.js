@@ -9,11 +9,17 @@ const initialState = {
   loader: false,
   socket: "",
   allOnlineUsers: [],
-  conversation: null
+  conversation: null,
+  videoCall: false
 };
 
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actions.SET_VIDEO_CALL:
+      return {
+        ...state,
+        videoCall: action.payload
+      };
     case actions.SET_CONVERSATION:
       return {
         ...state,

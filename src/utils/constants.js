@@ -1,2 +1,2 @@
-export const API_URL = 'https://dfchat-qp6a.onrender.com';
-// export const API_URL = 'https://assesment-be.vercel.app';
+// export const API_URL = 'https://dfchat-qp6a.onrender.com';
+export const API_URL = 'http://localhost:3001';

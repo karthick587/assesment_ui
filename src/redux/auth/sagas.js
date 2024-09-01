@@ -39,7 +39,6 @@ const getAllUsers = function* () {
     const result = yield call(() =>
       axios.get(`${API_URL}/api/users/list`)
     );
-    console.log(result)
     if (result?.data) {
       yield put({ type: actions.SET_ALL_USERS, payload: result?.data });
     }
@@ -89,7 +88,7 @@ const VerifyTocket = function* (data) {
       );
       if (result.data.statusCode === 200) {
 
-        const socket = io('https://dfchat-qp6a.onrender.com', {
+        const socket = io(API_URL, {
           auth: {
             token: payload
           }

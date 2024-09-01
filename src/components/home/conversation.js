@@ -40,14 +40,17 @@ export default function Conversation() {
             </Dropdown>
             <ListGroup variant="flush">
                 {conversationList?.map(el =>
-                    <ListGroup.Item 
-                        key={el._id} 
-                        action 
-                        onClick={() => dispatch({ type: actions.SET_CONVERSATION, payload: el })}
+                    <ListGroup.Item
+                        key={el._id}
+                        action
+                        onClick={() => {
+                            dispatch({ type: actions.SET_CONVERSATION, payload: null })
+                            dispatch({ type: actions.SET_CONVERSATION, payload: el })
+                        }}
                         className="d-flex justify-content-between align-items-center"
                     >
                         <span>{getUserFromMember(el.Members)?.UserName}</span>
-                        <span 
+                        <span
                             className={`status-indicator ${allOnlineUsers?.find(e => e.user.id === getUserFromMember(el.Members)?._id) ? 'online' : 'offline'}`}>
                         </span>
                     </ListGroup.Item>
