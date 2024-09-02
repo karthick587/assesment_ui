@@ -67,24 +67,6 @@ export default function SignUp() {
                         />
                         {errors.PhoneNumber && <div className="invalid-feedback">{errors.PhoneNumber.message}</div>}
                     </div>
-
-                    <div className="mb-3">
-                        <label htmlFor="roles" className="form-label">Roles</label>
-                        <select
-                            id="roles"
-                            className={`form-control ${errors.roles ? 'is-invalid' : ''}`}
-                            {...register("roles", { required: "Role is required" })}
-                        >
-                            <option value="">Select a role</option>
-                            {alluserRolesList.map(el => (
-                                <option key={el._id} value={el._id}>
-                                    {el.codeName}
-                                </option>
-                            ))}
-                        </select>
-                        {errors.roles && <div className="invalid-feedback">{errors.roles.message}</div>}
-                    </div>
-
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">Password</label>
                         <input
