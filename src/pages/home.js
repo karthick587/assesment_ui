@@ -11,8 +11,7 @@ export default function Home() {
     const dispatch = useDispatch();
 
     const logOut = () => {
-        localStorage.removeItem("isAuthenticated");
-        localStorage.removeItem("userName");
+        localStorage.clear();
         dispatch({ type: actions.RESET });
     };
 
