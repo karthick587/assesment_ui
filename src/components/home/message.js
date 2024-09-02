@@ -18,25 +18,19 @@ export default function Message() {
     useEffect(() => {
         if (conversation?._id) {
             socket?.on(`typing${conversation._id}`, (data) => {
-                if (data.ConversationId === conversation._id) {
                     setTyping(data.typing);
-                }
             });
 
             socket?.on(`receiveMessage${conversation._id}`, (data) => {
-                if (data.ConversationId === conversation._id) {
                     setMessages((prev) => [...prev, data]);
-                }
             });
 
             socket?.on(`messageReadUpdate${conversation._id}`, (data) => {
-                if (data.ConversationId === conversation._id) {
                     setMessages((prevMessages) =>
                         prevMessages.map((msg) =>
                             msg._id === data._id ? { ...msg, readBy: data.readBy } : msg
                         )
                     );
-                }
             });
 
             return () => {
