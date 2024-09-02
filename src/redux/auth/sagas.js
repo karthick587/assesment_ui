@@ -58,7 +58,7 @@ const addUsers = function* (data) {
   const { payload, history } = data;
   try {
     const result = yield call(() =>
-      axios.post(`${API_URL}/api/users/add`, payload)
+      axios.post(`${API_URL}/api/users/signup`, payload)
     );
     if (result?.data?.statusCode === 201) {
       alert(result.data?.message)
