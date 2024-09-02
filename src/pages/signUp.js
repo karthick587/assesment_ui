@@ -21,14 +21,14 @@ export default function SignUp() {
                 <h2 className="text-center mb-4">Sign Up</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-3">
-                        <label htmlFor="name" className="form-label">Name</label>
+                        <label htmlFor="UserName" className="form-label">Name</label>
                         <input
-                            id="name"
-                            className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+                            id="UserName"
+                            className={`form-control ${errors.UserName ? 'is-invalid' : ''}`}
                             type="text"
-                            {...register("name", { required: "Name is required" })}
+                            {...register("UserName", { required: "Name is required" })}
                         />
-                        {errors.name && <div className="invalid-feedback">{errors.name.message}</div>}
+                        {errors.UserName && <div className="invalid-feedback">{errors.UserName.message}</div>}
                     </div>
 
                     <div className="mb-3">
