@@ -14,9 +14,6 @@ export default function SignUp() {
         dispatch({ type: actions.ADD_USERS, payload: data, history });
     };
 
-    useEffect(() => {
-        dispatch({ type: actions.GET_ALL_USER_ROLES });
-    }, [dispatch]);
 
     return (
         <div className="d-flex justify-content-center align-items-center min-vh-100">
