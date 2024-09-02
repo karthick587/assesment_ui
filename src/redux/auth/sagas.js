@@ -64,7 +64,7 @@ const addUsers = function* (data) {
   } catch (err) {
     console.log(err)
     if (err.response && err.response.data) {
-      alert(err.response.data.message.code === 11000 && "Phone number Already exist" || 'An error occurred');
+      alert(err?.response?.data?.message || 'An error occurred');
     } else {
       alert('Network error or server is down');
     }
