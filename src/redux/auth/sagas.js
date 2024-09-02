@@ -60,12 +60,7 @@ const addUsers = function* (data) {
     const result = yield call(() =>
       axios.post(`${API_URL}/api/users/signup`, payload)
     );
-    if (result?.data?.statusCode === 201) {
-      alert(result.data?.message)
       history.push("/")
-    } else {
-      alert(result?.data?.message)
-    }
   } catch (err) {
     console.log(err)
     if (err.response && err.response.data) {
